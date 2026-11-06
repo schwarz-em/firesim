@@ -6,9 +6,8 @@ import re
 import logging
 import abc
 import json
-import shlex
-from fabric.api import prefix, local, run, env, cd, warn_only, put, settings, hide  # type: ignore
-from fabric.contrib.project import rsync_project  # type: ignore
+from fabric.api import prefix, local, env, cd, warn_only, settings, hide  # type: ignore
+from util.localhost import run, put, rsync_project
 from os.path import join as pjoin
 import os
 from pathlib import Path
@@ -1201,7 +1200,6 @@ class XilinxAlveoInstanceDeployManager(InstanceDeployManager):
         if self.instance_assigned_simulations():
             self.instance_logger("""Flash all FPGA Slots.""")
 
-            bitstream_map = []
             for slotno, firesimservernode in enumerate(self.parent_node.sim_slots):
                 serv = firesimservernode
                 hwcfg = serv.get_resolved_server_hardware_config()
@@ -1234,21 +1232,17 @@ class XilinxAlveoInstanceDeployManager(InstanceDeployManager):
                 self.instance_logger(
                     f"""Flashing FPGA Slot: {slotno} ({bdf}) with bitstream: {bit}"""
                 )
-                bitstream_map.append(f"{bdf} {bit}")
-
-            # Program all slots with a single Vivado session
-            map_file = f"{self.get_remote_sim_dir_for_slot(0)}/bitstream_map.txt"
-            run(
-                f"""printf '%s\\n' {" ".join(shlex.quote(l) for l in bitstream_map)} > {map_file}"""
-            )
-
-            # Use a system wide installed firesim-fpga-util.py
-            cmd = f"{script_path}/firesim-fpga-util.py"
-            check_script(
-                cmd,
-                Path(f"{get_deploy_dir()}/../platforms/{self.PLATFORM_NAME}/scripts"),
-            )
-            run(f"""{cmd} --bitstream-map {map_file} --fpga-db {json_db}""")
+                # One Vivado session per FPGA: the run-farm hosts' installed
+                # firesim-fpga-util.py predates --bitstream-map.
+                # Use a system wide installed firesim-fpga-util.py
+                cmd = f"{script_path}/firesim-fpga-util.py"
+                check_script(
+                    cmd,
+                    Path(
+                        f"{get_deploy_dir()}/../platforms/{self.PLATFORM_NAME}/scripts"
+                    ),
+                )
+                run(f"""{cmd} --bitstream {bit} --bdf {bdf} --fpga-db {json_db}""")
 
     def change_pcie_perms(self) -> None:
         if self.instance_assigned_simulations():
@@ -1263,6 +1257,20 @@ class XilinxAlveoInstanceDeployManager(InstanceDeployManager):
                 cmd = f"{script_path}/firesim-change-pcie-perms"
                 check_script(cmd)
                 run(f"""sudo {cmd} 0000:{bdf}""")
+
+    def check_bus_master(self) -> None:
+        """Fail early if any slot's FPGA has PCI-E bus mastering disabled (it could not DMA)."""
+        if self.instance_assigned_simulations():
+            for slotno in range(len(self.parent_node.sim_slots)):
+                bdf = self.slot_to_bdf(slotno, self.parent_node.get_fpga_db())
+                control = run(f"lspci -s {bdf} -vv | grep -o 'BusMaster[+-]'")
+                self.instance_logger(
+                    f"""FPGA Slot: {slotno} (bdf:{bdf}) {control.strip()}"""
+                )
+                if "BusMaster+" not in control:
+                    raise Exception(
+                        f"FPGA slot {slotno} ({bdf}) has PCI-E bus mastering disabled after reloading xdma; DMA to it would hang"
+                    )
 
     def change_all_pcie_perms(self) -> None:
         bdfs = [
@@ -1298,8 +1306,16 @@ class XilinxAlveoInstanceDeployManager(InstanceDeployManager):
                 self.unload_xdma()
                 # flash fpgas
                 self.flash_fpgas()
+                # Reconnecting a flashed FPGA can autoload xdma, which probes the
+                # device (enabling PCI-E bus mastering) before firesim-fpga-util.py
+                # rewrites the command register with 'setpci COMMAND=0x02', clearing
+                # Bus Master again. Without it the FPGA cannot DMA and the first
+                # host-to-FPGA transfer times out. Reload xdma so the probe, and its
+                # pci_set_master(), happens after the setpci.
+                self.unload_xdma()
                 # load xdma driver
                 self.load_xdma()
+                self.check_bus_master()
                 # change pcie permissions
                 self.change_pcie_perms()
 

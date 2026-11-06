@@ -6,8 +6,8 @@ import time
 import abc
 import os
 from datetime import timedelta
-from fabric.api import run, env, prefix, put, cd, warn_only, local, settings, hide  # type: ignore
-from fabric.contrib.project import rsync_project  # type: ignore
+from fabric.api import env, prefix, cd, warn_only, local, settings, hide  # type: ignore
+from util.localhost import run, put, rsync_project
 from os.path import join as pjoin
 import pprint
 from collections import defaultdict

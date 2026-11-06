@@ -8,7 +8,8 @@ import logging
 from os import fspath
 from os.path import realpath
 from pathlib import Path
-from fabric.api import run, warn_only, hide, get, local, settings  # type: ignore
+from fabric.api import warn_only, hide, local, settings  # type: ignore
+from util.localhost import run, get
 import hashlib
 from tempfile import TemporaryDirectory
 

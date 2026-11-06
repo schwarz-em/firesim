@@ -5,8 +5,8 @@ from __future__ import annotations
 import logging
 import abc
 import sys
-from fabric.contrib.project import rsync_project  # type: ignore
-from fabric.api import run, local, warn_only, get, put, cd, hide  # type: ignore
+from fabric.api import local, warn_only, cd, hide  # type: ignore
+from util.localhost import run, get, put, rsync_project
 from fabric.exceptions import CommandTimeout  # type: ignore
 
 from runtools.switch_model_config import AbstractSwitchToSwitchConfig

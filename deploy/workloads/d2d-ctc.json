@@ -1,0 +1,9 @@
+{
+  "benchmark_name": "d2d-ctc",
+  "common_simulation_outputs": ["uartlog"],
+  "common_rootfs": "../../../../../software/firemarshal/boards/default/installers/firesim/dummy.rootfs",
+  "workloads": [
+    {"name": "d2d-ctc-chip1", "bootbinary": "../../../../../tests/build/d2d-ctc-test-chip1.riscv"},
+    {"name": "d2d-ctc-chip2", "bootbinary": "../../../../../tests/build/d2d-ctc-test-chip2.riscv"}
+  ]
+}

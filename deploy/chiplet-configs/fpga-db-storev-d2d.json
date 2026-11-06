@@ -1,0 +1,12 @@
+[
+  {
+    "uid": "Digilent/210308B33FC6",
+    "device": "xcvu19p_0_1",
+    "bdf": "1b:00.0"
+  },
+  {
+    "uid": "Digilent/210308B33FC0",
+    "device": "xcvu19p_0_2",
+    "bdf": "61:00.0"
+  }
+]

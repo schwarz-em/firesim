@@ -1,0 +1,9 @@
+{
+  "benchmark_name": "d2d-ucie",
+  "common_simulation_outputs": ["uartlog"],
+  "common_rootfs": "../../../../../software/firemarshal/boards/default/installers/firesim/dummy.rootfs",
+  "workloads": [
+    {"name": "d2d-ucie-chip1", "bootbinary": "../../../../../tests/build/d2d-test-chip1.riscv"},
+    {"name": "d2d-ucie-chip2", "bootbinary": "../../../../../tests/build/d2d-test-chip2.riscv"}
+  ]
+}

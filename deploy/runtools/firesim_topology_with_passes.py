@@ -9,7 +9,8 @@ import logging
 import datetime
 import sys
 import yaml
-from fabric.api import env, parallel, execute, run, local, warn_only  # type: ignore
+from fabric.api import env, parallel, execute, local, warn_only  # type: ignore
+from util.localhost import run
 from colorama import Fore, Style  # type: ignore
 from functools import reduce
 from tempfile import TemporaryDirectory
