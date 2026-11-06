@@ -11,7 +11,11 @@ verilator = $(GENERATED_DIR)/V$(DESIGN)
 verilator_debug = $(GENERATED_DIR)/V$(DESIGN)-debug
 
 $(verilator) $(verilator_debug): export CXXFLAGS := $(CXXFLAGS) $(common_cxx_flags) $(VERILATOR_CXXOPTS) -D RTLSIM
-$(verilator) $(verilator_debug): export LDFLAGS := $(LDFLAGS) $(common_ld_flags) -Wl,-rpath='$$$$ORIGIN'
+# Do not add $ORIGIN here: this value crosses make, a nested make, the shell,
+# and Verilator's generated makefile.  The dollar is otherwise consumed into
+# `RIGIN` or an empty RPATH component (which searches the current directory).
+# Driver dependencies supply their explicit host-library RPATHs.
+$(verilator) $(verilator_debug): export LDFLAGS := $(LDFLAGS) $(common_ld_flags)
 
 verilator_driver_deps := $(header) $(DRIVER_CC) $(DRIVER_H) $(midas_cc) $(midas_h) $(simulator_verilog)
 

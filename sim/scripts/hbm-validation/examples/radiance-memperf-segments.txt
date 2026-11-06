@@ -1,0 +1,317 @@
+=== 613255 requests, 62 segments (gap >= 2000 cycles) ===
+[  0] segment0: 12268 reqs (R=10202 W=2066) cycles 2051..496396 (span 494345) uniq_addrs=8192
+    pc={0: 6117, 1: 6151}
+    bg={0: 3087, 1: 3046, 2: 3083, 3: 3052}
+    bank={0: 762, 1: 772, 2: 804, 3: 799, 4: 785, 5: 721, 6: 775, 7: 782, 8: 741, 9: 796, 10: 756, 11: 744, 12: 799, 13: 757, 14: 748, 15: 727}
+    rows=8 distinct, row_switches=4203
+[  1] segment1: 42 reqs (R=30 W=12) cycles 499048..514902 (span 15854) uniq_addrs=42
+    pc={0: 17, 1: 25}
+    bg={0: 12, 1: 13, 2: 11, 3: 6}
+    bank={0: 4, 2: 5, 3: 4, 5: 2, 6: 5, 8: 3, 9: 7, 11: 2, 12: 5, 13: 4, 14: 1}
+    rows=7 distinct, row_switches=22
+[  2] segment2: 23 reqs (R=18 W=5) cycles 516937..530014 (span 13077) uniq_addrs=23
+    pc={0: 15, 1: 8}
+    bg={0: 7, 1: 1, 2: 11, 3: 4}
+    bank={0: 2, 2: 2, 4: 2, 6: 1, 7: 1, 8: 1, 10: 3, 12: 2, 13: 1, 14: 5, 15: 3}
+    rows=5 distinct, row_switches=8
+[  3] segment3: 6663 reqs (R=4235 W=2428) cycles 532137..824824 (span 292687) uniq_addrs=5993
+    pc={0: 3336, 1: 3327}
+    bg={0: 1693, 1: 1638, 2: 1663, 3: 1669}
+    bank={0: 417, 1: 420, 2: 419, 3: 420, 4: 433, 5: 400, 6: 406, 7: 411, 8: 418, 9: 416, 10: 418, 11: 422, 12: 425, 13: 402, 14: 420, 15: 416}
+    rows=16 distinct, row_switches=4537
+[  4] segment4: 7 reqs (R=5 W=2) cycles 826848..828781 (span 1933) uniq_addrs=7
+    pc={0: 7}
+    bg={0: 2, 3: 5}
+    bank={8: 1, 11: 4, 12: 1, 15: 1}
+    rows=2 distinct, row_switches=3
+[  5] segment5: 179177 reqs (R=112950 W=66227) cycles 831073..6471371 (span 5640298) uniq_addrs=32757
+    pc={0: 89420, 1: 89757}
+    bg={0: 44809, 1: 44709, 2: 44814, 3: 44845}
+    bank={0: 11210, 1: 11270, 2: 11180, 3: 11282, 4: 11286, 5: 11125, 6: 11300, 7: 11242, 8: 11152, 9: 11275, 10: 11128, 11: 11105, 12: 11161, 13: 11039, 14: 11206, 15: 11216}
+    rows=32 distinct, row_switches=134347
+[  6] segment6: 222106 reqs (R=145268 W=76838) cycles 6479685..13446579 (span 6966894) uniq_addrs=26437
+    pc={0: 111151, 1: 110955}
+    bg={0: 55556, 1: 55646, 2: 55558, 3: 55346}
+    bank={0: 13935, 1: 13975, 2: 13866, 3: 13835, 4: 13854, 5: 13889, 6: 13837, 7: 13833, 8: 13865, 9: 13943, 10: 13968, 11: 13750, 12: 13902, 13: 13839, 14: 13887, 15: 13928}
+    rows=32 distinct, row_switches=171544
+[  7] segment7: 3690 reqs (R=3282 W=408) cycles 13454883..13687175 (span 232292) uniq_addrs=3342
+    pc={0: 1843, 1: 1847}
+    bg={0: 882, 1: 930, 2: 946, 3: 932}
+    bank={0: 229, 1: 243, 2: 246, 3: 217, 4: 225, 5: 235, 6: 245, 7: 228, 8: 222, 9: 221, 10: 224, 11: 240, 12: 206, 13: 231, 14: 231, 15: 247}
+    rows=32 distinct, row_switches=913
+[  8] segment8: 1 reqs (R=1 W=0) cycles 13694551..13694551 (span 0) uniq_addrs=1
+    pc={0: 1}
+    bg={2: 1}
+    bank={10: 1}
+    rows=1 distinct, row_switches=0
+[  9] segment9: 5 reqs (R=4 W=1) cycles 13699715..13703459 (span 3744) uniq_addrs=5
+    pc={1: 5}
+    bg={0: 1, 2: 3, 3: 1}
+    bank={2: 1, 4: 1, 6: 2, 7: 1}
+    rows=2 distinct, row_switches=1
+[ 10] segment10: 13 reqs (R=12 W=1) cycles 13707643..13716827 (span 9184) uniq_addrs=13
+    pc={0: 11, 1: 2}
+    bg={0: 5, 1: 2, 2: 2, 3: 4}
+    bank={0: 2, 2: 1, 3: 2, 4: 3, 7: 2, 9: 1, 13: 1, 14: 1}
+    rows=3 distinct, row_switches=2
+[ 11] segment11: 4 reqs (R=3 W=1) cycles 13722342..13724120 (span 1778) uniq_addrs=4
+    pc={1: 4}
+    bg={0: 3, 2: 1}
+    bank={0: 3, 2: 1}
+    rows=2 distinct, row_switches=2
+[ 12] segment12: 1 reqs (R=1 W=0) cycles 13727544..13727544 (span 0) uniq_addrs=1
+    pc={1: 1}
+    bg={3: 1}
+    bank={7: 1}
+    rows=1 distinct, row_switches=0
+[ 13] segment13: 2 reqs (R=2 W=0) cycles 13730301..13731105 (span 804) uniq_addrs=2
+    pc={1: 2}
+    bg={0: 1, 3: 1}
+    bank={11: 1, 12: 1}
+    rows=1 distinct, row_switches=0
+[ 14] segment14: 40 reqs (R=34 W=6) cycles 13773343..13779623 (span 6280) uniq_addrs=40
+    pc={0: 40}
+    bg={0: 11, 1: 8, 2: 14, 3: 7}
+    bank={0: 2, 1: 2, 2: 11, 3: 2, 4: 3, 5: 5, 6: 3, 7: 5, 8: 6, 9: 1}
+    rows=5 distinct, row_switches=9
+[ 15] segment15: 2 reqs (R=1 W=1) cycles 13785897..13785901 (span 4) uniq_addrs=2
+    pc={1: 2}
+    bg={2: 2}
+    bank={6: 2}
+    rows=2 distinct, row_switches=1
+[ 16] segment16: 1 reqs (R=1 W=0) cycles 13791969..13791969 (span 0) uniq_addrs=1
+    pc={0: 1}
+    bg={0: 1}
+    bank={4: 1}
+    rows=1 distinct, row_switches=0
+[ 17] segment17: 5874 reqs (R=4391 W=1483) cycles 14035928..14350213 (span 314285) uniq_addrs=4204
+    pc={0: 2962, 1: 2912}
+    bg={0: 1445, 1: 1405, 2: 1479, 3: 1545}
+    bank={0: 356, 1: 340, 2: 343, 3: 356, 4: 340, 5: 380, 6: 371, 7: 396, 8: 351, 9: 360, 10: 385, 11: 396, 12: 398, 13: 325, 14: 380, 15: 397}
+    rows=32 distinct, row_switches=3035
+[ 18] segment18: 9382 reqs (R=5183 W=4199) cycles 14352538..14738726 (span 386188) uniq_addrs=7169
+    pc={0: 4692, 1: 4690}
+    bg={0: 2317, 1: 2352, 2: 2354, 3: 2359}
+    bank={0: 577, 1: 595, 2: 594, 3: 589, 4: 570, 5: 591, 6: 582, 7: 586, 8: 577, 9: 587, 10: 590, 11: 587, 12: 593, 13: 579, 14: 588, 15: 597}
+    rows=32 distinct, row_switches=7590
+[ 19] segment19: 38 reqs (R=28 W=10) cycles 14741258..14751994 (span 10736) uniq_addrs=38
+    pc={0: 18, 1: 20}
+    bg={0: 11, 1: 13, 2: 4, 3: 10}
+    bank={0: 4, 1: 2, 2: 2, 3: 2, 4: 3, 5: 4, 6: 1, 7: 2, 8: 3, 9: 2, 11: 2, 12: 1, 13: 5, 14: 1, 15: 4}
+    rows=9 distinct, row_switches=13
+[ 20] segment20: 2 reqs (R=2 W=0) cycles 14753998..14754378 (span 380) uniq_addrs=2
+    pc={0: 1, 1: 1}
+    bg={0: 1, 3: 1}
+    bank={0: 1, 15: 1}
+    rows=2 distinct, row_switches=0
+[ 21] segment21: 13 reqs (R=11 W=2) cycles 14756398..14762286 (span 5888) uniq_addrs=13
+    pc={0: 9, 1: 4}
+    bg={0: 4, 1: 3, 2: 5, 3: 1}
+    bank={0: 1, 1: 2, 6: 1, 11: 1, 12: 3, 13: 1, 14: 4}
+    rows=5 distinct, row_switches=5
+[ 22] segment22: 7 reqs (R=4 W=3) cycles 14765018..14765541 (span 523) uniq_addrs=7
+    pc={0: 3, 1: 4}
+    bg={0: 1, 1: 4, 3: 2}
+    bank={0: 1, 13: 4, 15: 2}
+    rows=4 distinct, row_switches=4
+[ 23] segment23: 9256 reqs (R=5133 W=4123) cycles 14768214..15128457 (span 360243) uniq_addrs=7124
+    pc={0: 4617, 1: 4639}
+    bg={0: 2316, 1: 2312, 2: 2309, 3: 2319}
+    bank={0: 573, 1: 585, 2: 584, 3: 577, 4: 583, 5: 579, 6: 568, 7: 582, 8: 577, 9: 576, 10: 581, 11: 582, 12: 583, 13: 572, 14: 576, 15: 578}
+    rows=32 distinct, row_switches=7553
+[ 24] segment24: 1 reqs (R=1 W=0) cycles 15130526..15130526 (span 0) uniq_addrs=1
+    pc={0: 1}
+    bg={0: 1}
+    bank={0: 1}
+    rows=1 distinct, row_switches=0
+[ 25] segment25: 2 reqs (R=2 W=0) cycles 15133371..15133737 (span 366) uniq_addrs=2
+    pc={1: 2}
+    bg={0: 1, 3: 1}
+    bank={7: 1, 8: 1}
+    rows=1 distinct, row_switches=0
+[ 26] segment26: 3 reqs (R=2 W=1) cycles 15136254..15137884 (span 1630) uniq_addrs=3
+    pc={0: 3}
+    bg={1: 2, 3: 1}
+    bank={3: 1, 13: 2}
+    rows=2 distinct, row_switches=1
+[ 27] segment27: 2 reqs (R=2 W=0) cycles 15140757..15140784 (span 27) uniq_addrs=2
+    pc={1: 2}
+    bg={2: 2}
+    bank={14: 2}
+    rows=1 distinct, row_switches=0
+[ 28] segment28: 1 reqs (R=1 W=0) cycles 15143485..15143485 (span 0) uniq_addrs=1
+    pc={1: 1}
+    bg={3: 1}
+    bank={15: 1}
+    rows=1 distinct, row_switches=0
+[ 29] segment29: 59942 reqs (R=38124 W=21818) cycles 15146227..17023668 (span 1877441) uniq_addrs=30881
+    pc={0: 30051, 1: 29891}
+    bg={0: 15002, 1: 14961, 2: 14997, 3: 14982}
+    bank={0: 3765, 1: 3748, 2: 3734, 3: 3784, 4: 3735, 5: 3758, 6: 3740, 7: 3707, 8: 3817, 9: 3741, 10: 3741, 11: 3701, 12: 3685, 13: 3714, 14: 3782, 15: 3790}
+    rows=32 distinct, row_switches=42851
+[ 30] segment30: 11246 reqs (R=8456 W=2790) cycles 17031965..17541750 (span 509785) uniq_addrs=8197
+    pc={0: 5538, 1: 5708}
+    bg={0: 2770, 1: 2835, 2: 2755, 3: 2886}
+    bank={0: 708, 1: 669, 2: 674, 3: 733, 4: 684, 5: 677, 6: 678, 7: 687, 8: 688, 9: 756, 10: 731, 11: 742, 12: 690, 13: 733, 14: 672, 15: 724}
+    rows=32 distinct, row_switches=5674
+[ 31] segment31: 49 reqs (R=34 W=15) cycles 17544013..17562320 (span 18307) uniq_addrs=49
+    pc={0: 26, 1: 23}
+    bg={0: 8, 1: 12, 2: 13, 3: 16}
+    bank={0: 1, 1: 1, 3: 2, 4: 3, 5: 3, 6: 5, 7: 8, 8: 3, 9: 8, 10: 3, 11: 1, 12: 1, 14: 5, 15: 5}
+    rows=12 distinct, row_switches=27
+[ 32] segment32: 33 reqs (R=19 W=14) cycles 17565244..17576801 (span 11557) uniq_addrs=33
+    pc={0: 13, 1: 20}
+    bg={0: 12, 1: 7, 2: 5, 3: 9}
+    bank={0: 2, 1: 1, 2: 1, 3: 6, 4: 2, 5: 2, 7: 2, 8: 6, 9: 2, 10: 2, 12: 2, 13: 2, 14: 2, 15: 1}
+    rows=7 distinct, row_switches=17
+[ 33] segment33: 2 reqs (R=2 W=0) cycles 17580517..17580983 (span 466) uniq_addrs=2
+    pc={0: 2}
+    bg={1: 1, 3: 1}
+    bank={5: 1, 7: 1}
+    rows=1 distinct, row_switches=0
+[ 34] segment34: 22 reqs (R=16 W=6) cycles 17584200..17595162 (span 10962) uniq_addrs=22
+    pc={0: 9, 1: 13}
+    bg={0: 5, 1: 4, 2: 10, 3: 3}
+    bank={0: 1, 3: 3, 4: 2, 5: 1, 6: 4, 8: 2, 9: 1, 10: 5, 13: 2, 14: 1}
+    rows=8 distinct, row_switches=8
+[ 35] segment35: 22721 reqs (R=12689 W=10032) cycles 17597239..18442005 (span 844766) uniq_addrs=8988
+    pc={0: 11372, 1: 11349}
+    bg={0: 5692, 1: 5603, 2: 5642, 3: 5784}
+    bank={0: 1354, 1: 1369, 2: 1456, 3: 1399, 4: 1446, 5: 1449, 6: 1405, 7: 1455, 8: 1450, 9: 1401, 10: 1358, 11: 1490, 12: 1442, 13: 1384, 14: 1423, 15: 1440}
+    rows=32 distinct, row_switches=18758
+[ 36] segment36: 68108 reqs (R=43973 W=24135) cycles 18444102..20473927 (span 2029825) uniq_addrs=16307
+    pc={0: 34022, 1: 34086}
+    bg={0: 16984, 1: 17055, 2: 17059, 3: 17010}
+    bank={0: 4228, 1: 4261, 2: 4284, 3: 4273, 4: 4234, 5: 4269, 6: 4254, 7: 4226, 8: 4256, 9: 4282, 10: 4221, 11: 4253, 12: 4266, 13: 4243, 14: 4300, 15: 4258}
+    rows=32 distinct, row_switches=50281
+[ 37] segment37: 2335 reqs (R=2002 W=333) cycles 20482267..20707158 (span 224891) uniq_addrs=2157
+    pc={0: 1179, 1: 1156}
+    bg={0: 599, 1: 586, 2: 534, 3: 616}
+    bank={0: 137, 1: 150, 2: 143, 3: 141, 4: 156, 5: 141, 6: 125, 7: 158, 8: 155, 9: 160, 10: 148, 11: 151, 12: 151, 13: 135, 14: 118, 15: 166}
+    rows=32 distinct, row_switches=1424
+[ 38] segment38: 60 reqs (R=49 W=11) cycles 20709869..20730286 (span 20417) uniq_addrs=60
+    pc={0: 26, 1: 34}
+    bg={0: 15, 1: 21, 2: 13, 3: 11}
+    bank={0: 3, 1: 4, 2: 4, 3: 2, 4: 4, 5: 5, 6: 6, 7: 6, 8: 2, 9: 2, 11: 2, 12: 6, 13: 10, 14: 3, 15: 1}
+    rows=9 distinct, row_switches=22
+[ 39] segment39: 13 reqs (R=13 W=0) cycles 20734304..20738213 (span 3909) uniq_addrs=13
+    pc={0: 5, 1: 8}
+    bg={0: 4, 1: 4, 2: 3, 3: 2}
+    bank={0: 1, 4: 3, 5: 3, 6: 1, 11: 2, 13: 1, 14: 2}
+    rows=4 distinct, row_switches=0
+[ 40] segment40: 11 reqs (R=8 W=3) cycles 20740682..20744762 (span 4080) uniq_addrs=11
+    pc={0: 8, 1: 3}
+    bg={0: 5, 1: 5, 3: 1}
+    bank={4: 3, 8: 2, 9: 4, 13: 1, 15: 1}
+    rows=5 distinct, row_switches=5
+[ 41] segment41: 7 reqs (R=6 W=1) cycles 20748382..20749176 (span 794) uniq_addrs=7
+    pc={0: 3, 1: 4}
+    bg={0: 4, 1: 2, 3: 1}
+    bank={3: 1, 4: 1, 8: 3, 9: 2}
+    rows=3 distinct, row_switches=2
+[ 42] segment42: 8 reqs (R=6 W=2) cycles 20751878..20754796 (span 2918) uniq_addrs=8
+    pc={0: 5, 1: 3}
+    bg={2: 5, 3: 3}
+    bank={7: 1, 10: 3, 14: 2, 15: 2}
+    rows=2 distinct, row_switches=3
+[ 43] segment43: 17 reqs (R=13 W=4) cycles 20757028..20764039 (span 7011) uniq_addrs=17
+    pc={0: 8, 1: 9}
+    bg={0: 4, 1: 4, 2: 5, 3: 4}
+    bank={0: 3, 1: 2, 2: 3, 4: 1, 7: 4, 9: 2, 10: 2}
+    rows=6 distinct, row_switches=6
+[ 44] segment44: 5 reqs (R=5 W=0) cycles 20767200..20768349 (span 1149) uniq_addrs=5
+    pc={0: 3, 1: 2}
+    bg={2: 4, 3: 1}
+    bank={3: 1, 6: 2, 14: 2}
+    rows=2 distinct, row_switches=0
+[ 45] segment45: 1 reqs (R=1 W=0) cycles 20771081..20771081 (span 0) uniq_addrs=1
+    pc={1: 1}
+    bg={2: 1}
+    bank={6: 1}
+    rows=1 distinct, row_switches=0
+[ 46] segment46: 4 reqs (R=4 W=0) cycles 20774695..20775596 (span 901) uniq_addrs=4
+    pc={0: 2, 1: 2}
+    bg={0: 2, 3: 2}
+    bank={0: 2, 15: 2}
+    rows=2 distinct, row_switches=0
+[ 47] segment47: 1 reqs (R=1 W=0) cycles 20779171..20779171 (span 0) uniq_addrs=1
+    pc={0: 1}
+    bg={2: 1}
+    bank={6: 1}
+    rows=1 distinct, row_switches=0
+[ 48] segment48: 6 reqs (R=5 W=1) cycles 20783608..20784164 (span 556) uniq_addrs=6
+    pc={0: 4, 1: 2}
+    bg={1: 2, 3: 4}
+    bank={3: 4, 13: 2}
+    rows=3 distinct, row_switches=1
+[ 49] segment49: 2 reqs (R=2 W=0) cycles 20787657..20788518 (span 861) uniq_addrs=2
+    pc={0: 1, 1: 1}
+    bg={1: 1, 3: 1}
+    bank={7: 1, 13: 1}
+    rows=2 distinct, row_switches=0
+[ 50] segment50: 6 reqs (R=4 W=2) cycles 20791027..20793632 (span 2605) uniq_addrs=6
+    pc={0: 2, 1: 4}
+    bg={0: 1, 2: 2, 3: 3}
+    bank={2: 2, 3: 2, 8: 1, 15: 1}
+    rows=4 distinct, row_switches=2
+[ 51] segment51: 3 reqs (R=2 W=1) cycles 20799183..20800623 (span 1440) uniq_addrs=3
+    pc={0: 3}
+    bg={2: 3}
+    bank={10: 3}
+    rows=3 distinct, row_switches=2
+[ 52] segment52: 1 reqs (R=1 W=0) cycles 20811109..20811109 (span 0) uniq_addrs=1
+    pc={1: 1}
+    bg={3: 1}
+    bank={3: 1}
+    rows=1 distinct, row_switches=0
+[ 53] segment53: 1 reqs (R=1 W=0) cycles 20826108..20826108 (span 0) uniq_addrs=1
+    pc={1: 1}
+    bg={1: 1}
+    bank={13: 1}
+    rows=1 distinct, row_switches=0
+[ 54] segment54: 1 reqs (R=1 W=0) cycles 20828783..20828783 (span 0) uniq_addrs=1
+    pc={0: 1}
+    bg={1: 1}
+    bank={13: 1}
+    rows=1 distinct, row_switches=0
+[ 55] segment55: 7 reqs (R=5 W=2) cycles 20833278..20834632 (span 1354) uniq_addrs=7
+    pc={0: 1, 1: 6}
+    bg={1: 1, 3: 6}
+    bank={3: 2, 7: 4, 9: 1}
+    rows=2 distinct, row_switches=3
+[ 56] segment56: 1 reqs (R=1 W=0) cycles 20840991..20840991 (span 0) uniq_addrs=1
+    pc={0: 1}
+    bg={3: 1}
+    bank={11: 1}
+    rows=1 distinct, row_switches=0
+[ 57] segment57: 2 reqs (R=1 W=1) cycles 20846392..20846396 (span 4) uniq_addrs=2
+    pc={1: 2}
+    bg={3: 2}
+    bank={3: 2}
+    rows=2 distinct, row_switches=1
+[ 58] segment58: 8 reqs (R=5 W=3) cycles 20875661..20878885 (span 3224) uniq_addrs=7
+    pc={0: 4, 1: 4}
+    bg={2: 4, 3: 4}
+    bank={3: 4, 14: 4}
+    rows=5 distinct, row_switches=4
+[ 59] segment59: 2 reqs (R=2 W=0) cycles 20952239..20952245 (span 6) uniq_addrs=2
+    pc={0: 2}
+    bg={1: 2}
+    bank={9: 2}
+    rows=1 distinct, row_switches=0
+[ 60] segment60: 2 reqs (R=2 W=0) cycles 20956973..20956996 (span 23) uniq_addrs=2
+    pc={1: 2}
+    bg={3: 2}
+    bank={7: 2}
+    rows=1 distinct, row_switches=0
+[ 61] segment61: 2 reqs (R=1 W=1) cycles 21065474..21065478 (span 4) uniq_addrs=2
+    pc={0: 2}
+    bg={2: 2}
+    bank={10: 2}
+    rows=2 distinct, row_switches=1
+=== overall ===
+all: 613255 reqs (R=396263 W=216992) cycles 2051..21065478 (span 21063427) uniq_addrs=32768
+    pc={0: 306559, 1: 306696}
+    bg={0: 153274, 1: 153192, 2: 153320, 3: 153469}
+    bank={0: 38285, 1: 38411, 2: 38360, 3: 38446, 4: 38363, 5: 38240, 6: 38321, 7: 38335, 8: 38303, 9: 38549, 10: 38273, 11: 38179, 12: 38323, 13: 37992, 14: 38366, 15: 38509}
+    rows=32 distinct, row_switches=453457

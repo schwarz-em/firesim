@@ -5,6 +5,7 @@
 
 #include "core/address_map.h"
 #include "core/bridge_driver.h"
+#include "fased_memory_timing_model_output.h"
 
 #include <fstream>
 #include <set>
@@ -133,6 +134,8 @@ public:
 
 private:
   const AddressMap addr_map;
+  const FASEDMemoryTimingModelOutputFiles output_files;
+  const unsigned modelno;
 
   /**
    * User-provided configuration options.
@@ -169,12 +172,12 @@ private:
 
   bool has_latency_histograms() { return !histograms.empty(); };
   size_t mem_size;
-  // By default, FASED requires that plus args for all timing model parameters
-  // are passed in to prevent accidental misconfigurations (ex. when
-  // DRAM timing parameters are passed to an LBP). When this is set, using the
-  // plus arg +mm_useHardwareDefaultRuntimeSettings_<idx>, the driver will
-  // instead use the hardware reset values (which map to the values emitted in
-  // the runtime.conf) and print those values to the log instead.
+  // By default, every FASED instance with runtime settings requires a complete
+  // per-model plusarg map. This prevents an absent or partial profile from
+  // silently selecting reset values (and catches, for example, DRAM settings
+  // passed to an LBP). The explicit
+  // +mm_useHardwareDefaultRuntimeSettings_<idx> opt-in permits missing settings
+  // to retain their hardware reset values and logs each retained value.
   bool useHardwareDefaults = false;
 };
 

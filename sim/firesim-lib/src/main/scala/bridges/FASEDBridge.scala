@@ -33,6 +33,11 @@ class FASEDTargetIO(nastiParams: NastiParameters) extends Bundle {
 }
 
 class FASEDBridge(argument: CompleteConfig) extends BlackBox with Bridge[HostPortIO[FASEDTargetIO]] {
+  // Each memory port can have a different AXI address width. FIRRTL requires
+  // every extmodule that shares a defname to have identical ports, so give
+  // each bridge its own defname.
+  private val fasedUid = FASEDBridge.nextUid
+  override def desiredName = s"FASEDBridge_$fasedUid"
   val moduleName     = "midas.models.FASEDMemoryTimingModel"
   val io             = IO(new FASEDTargetIO(argument.axi4Widths))
   val bridgeIO       = HostPort(io)
@@ -41,6 +46,8 @@ class FASEDBridge(argument: CompleteConfig) extends BlackBox with Bridge[HostPor
 }
 
 object FASEDBridge {
+  private val uids = new java.util.concurrent.atomic.AtomicInteger
+  private def nextUid: Int = uids.getAndIncrement()
   def apply(clock: Clock, axi4: NastiIO, reset: Bool, cfg: CompleteConfig): FASEDBridge = {
     val ep = Module(new FASEDBridge(cfg))
     ep.io.reset := reset

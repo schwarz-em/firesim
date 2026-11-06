@@ -83,6 +83,26 @@ class WithFuzzerMask(mask: BigInt)
     })
 class FuzzMask3FFF extends WithFuzzerMask(0x3fff)
 
+// With the default HBM address layout ([9:0] line | [13:10] bank | [14] PC |
+// [21:15] row), constrain the fuzzer to PC 0, bank 0 while letting the row
+// bits vary: a directed row-conflict / bank-timing (tRC/tRAS/tRP) stressor.
+class FuzzMaskSingleBank extends WithFuzzerMask(0x3f83ff)
+
+// Directed multi-channel boundary stressor: with the quad-channel contiguous
+// partition of the 22-bit fuzzer space (1 MiB per channel, channel index in
+// address bits [21:20]), fuzz exactly the first and the last 64B line of
+// every channel region: {0x000000, 0x100000, 0x200000, 0x300000} and
+// {0x0FFFC0, 0x1FFFC0, 0x2FFFC0, 0x3FFFC0}. Every request lands on a
+// channel-partition edge -- including the lowest and highest modeled
+// addresses -- so the request trace proves the boundary routing exactly.
+class FuzzChannelBoundaries
+    extends Config((site, _, _) => { case FuzzerParametersKey =>
+      Seq(
+        FuzzerParameters(site(NumTransactions) / 2, site(MaxFlight), Some(AddressSet(0x000000, 0x300000))),
+        FuzzerParameters(site(NumTransactions) / 2, site(MaxFlight), Some(AddressSet(0x0fffc0, 0x300000))),
+      )
+    })
+
 // Generates N fuzzers mastering non-overlapping chunks of the target memory space
 class WithNFuzzers(numFuzzers: Int)
     extends Config((site, _, _) => { case FuzzerParametersKey =>
@@ -167,6 +187,69 @@ class DefaultF1Config
     extends Config(
       new WithDefaultMemModel ++
         new midas.F1Config
+    )
+
+class DefaultF2Config
+    extends Config(
+      new WithDefaultMemModel ++
+        new midas.F2Config
+    )
+
+// AXI4Fuzzer against the HBM2 pseudo-channel timing model (for stress
+// testing the model's legality assertions and extracting command traces)
+class HBMF2Config
+    extends Config(
+      new HBM2FRFCFS16GBDualPC ++
+        new midas.F2Config
+    )
+
+// Explicit completion depths preserve the legacy four-entry baseline and the
+// eight-entry corrected variant for reproducible model A/B tests.
+class HBMF2Backend4Config
+    extends Config(
+      new WithHBMBackendEntries(4) ++
+        new HBMF2Config
+    )
+
+class HBMF2Backend8Config
+    extends Config(
+      new WithHBMBackendEntries(8) ++
+        new HBMF2Config
+    )
+
+// Matched single-AXI-port DDR control for FixedReadProbe. The target's
+// DefaultConfig supplies the same 64-bit AXI widths as the HBM variants.
+class DDRF2Config
+    extends Config(
+      new FRFCFS8GBQuadRank ++
+        new midas.F2Config
+    )
+
+// As HBMF2Config, but additionally emits one "HBMREQ,..." CSV line per
+// memory transaction accepted by the HBM scheduler (single-channel request
+// trace for controller-vs-model validation).
+class HBMF2ReqTraceConfig
+    extends Config(
+      new WithHBMRequestTrace ++
+        new HBMF2Config
+    )
+
+// AXI4Fuzzer against the quad-channel HBM2 model: four independent
+// per-channel schedulers (bank/BG/PC timing state, refresh, command buses)
+// behind one AXI4 port. Channel decode is runtime-programmable via the
+// mm_chAddr_* registers.
+class HBMF2QuadChConfig
+    extends Config(
+      new WithHBMQuadChannel ++
+        new HBMF2Config
+    )
+
+// Quad-channel HBM with the per-request CSV trace enabled (used to validate
+// request-to-channel routing against the programmed address partition).
+class HBMF2QuadChReqTraceConfig
+    extends Config(
+      new WithHBMRequestTrace ++
+        new HBMF2QuadChConfig
     )
 
 class SmallQuadChannelHostConfig

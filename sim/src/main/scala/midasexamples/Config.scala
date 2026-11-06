@@ -7,7 +7,7 @@ import org.chipsalliance.cde.config._
 import junctions._
 
 import firesim.configs.{MemModelKey, WithDefaultMemModel, WithWiringTransform}
-import midas.models.{BaseParams, LatencyPipeConfig}
+import midas.models.{BaseParams, HBMModelConfig, HBMOrganizationParams, LatencyPipeConfig}
 
 import firesim.lib.nasti.NastiParameters
 
@@ -51,6 +51,21 @@ class DefaultVitisConfig
 class PointerChaserLPC
     extends Config((_, _, _) => { case MemModelKey =>
       new LatencyPipeConfig(BaseParams(16, 16))
+    })
+// PointerChaser against the HBM2 pseudo-channel timing model
+class PointerChaserHBM
+    extends Config((_, _, _) => { case MemModelKey =>
+      new HBMModelConfig(
+        hbmKey                = HBMOrganizationParams(
+          maxPseudoChannels = 2,
+          maxBankGroups     = 4,
+          banksPerGroup     = 4,
+          channelSize       = BigInt(1) << 34,
+        ),
+        schedulerWindowSize   = 8,
+        transactionQueueDepth = 8,
+        params                = BaseParams(16, 16),
+      )
     })
 class PointerChaserConfig
     extends Config((_, _, _) => {

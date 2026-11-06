@@ -12,8 +12,12 @@ parser.add_argument("--length", dest = "list_length", default = 48, help = "The 
 
 parser.add_argument("--output_file", dest = "output_file", default = "init.hex", help = "The name of the hex file to be generated")
 
+parser.add_argument("--seed", dest = "seed", default = None, type = int, help = "Optional PRNG seed, for generating reproducible lists")
+
 
 args = parser.parse_args()
+if args.seed is not None:
+    random.seed(args.seed)
 addresses = random.sample(range(args.base_address + 64, 1024*1024, 64),
             args.list_length)
 

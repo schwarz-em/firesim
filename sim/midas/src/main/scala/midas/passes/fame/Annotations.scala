@@ -338,11 +338,17 @@ class EmitAllAnnotations(fileName: String) extends firrtl.Transform {
   override def name = s"[Golden Gate] Debugging FAME Annotation Emission Pass: $fileName"
 
   def execute(state: CircuitState) = {
-    val targetDir  = state.annotations.collectFirst { case TargetDirAnnotation(dir) => dir }
-    val dirName    = targetDir.getOrElse(".")
-    val outputFile = new java.io.PrintWriter(s"${dirName}/${fileName}")
-    outputFile.write(JsonProtocol.serialize(state.annotations))
-    outputFile.close()
+    val targetDir              = state.annotations.collectFirst { case TargetDirAnnotation(dir) => dir }
+    val dirName                = targetDir.getOrElse(".")
+    val annos: Seq[Annotation] = state.annotations
+    // Same type hints as JsonProtocol.serialize, but streamed: large designs exceed the 2 GiB String limit.
+    val tags       = annos.flatMap {
+      case anno: HasSerializationHints => anno.getClass +: anno.typeHints
+      case anno                        => Seq(anno.getClass)
+    }.distinct
+    val outputFile = new java.io.BufferedWriter(new java.io.FileWriter(s"${dirName}/${fileName}"), 1 << 20)
+    try org.json4s.native.Serialization.writePretty(annos, outputFile)(JsonProtocol.jsonFormat(tags))
+    finally outputFile.close()
     state
   }
 }

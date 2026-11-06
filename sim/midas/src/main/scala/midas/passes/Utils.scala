@@ -30,15 +30,14 @@ object Utils {
       case Some(dir) => new File(dir, name)
       case None      => new File(name)
     }
-    val writer  = new java.io.FileWriter(file)
-    val emitter = state.form match {
-      case LowForm  => new LowFirrtlEmitter
-      case MidForm  => new MiddleFirrtlEmitter
-      case HighForm => new HighFirrtlEmitter
-      case _        => throw new RuntimeException("Cannot select emitter for unrecognized form.")
+    state.form match {
+      case LowForm | MidForm | HighForm =>
+      case _                            => throw new RuntimeException("Cannot select emitter for unrecognized form.")
     }
-    emitter.emit(state, writer)
-    writer.close
+    // Streamed: large designs serialize past the JVM's 2 GiB String limit.
+    val writer = new java.io.BufferedWriter(new java.io.FileWriter(file), 1 << 20)
+    try firrtl.ir.Serializer.lazily(state.circuit).foreach(writer.write)
+    finally writer.close()
   }
 }
 
