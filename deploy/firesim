@@ -465,7 +465,8 @@ def main(args: argparse.Namespace) -> None:
     env.keepalive = 30
     # ~/firesim.pem is only needed on AWS; on-prem, fall back to ssh-agent/default keys.
     # paramiko aborts (instead of trying the agent) if key_filename points at a missing file.
-    firesim_key = os.path.expanduser("~/firesim.pem") #rh: okay so /firesim.pem does work for infrasetup, need to bump paramiko though to support rsa2
+    # FIRESIM_SSH_KEY_FILE overrides the key path (firesim PR 1921).
+    firesim_key = os.path.expanduser(os.environ.get("FIRESIM_SSH_KEY_FILE", "~/firesim.pem"))
     if os.path.exists(firesim_key):
         env.key_filename = firesim_key
 
