@@ -301,3 +301,12 @@ class HBM2FRFCFS8HiQuadChannel
         new WithHBMBankOrganization(bankGroups = 8, banksPerGroup = 4) ++
         new HBM2FRFCFS16GBQuadChannel
     )
+
+// sram-vs-bw-study M6: FASED functional-model limit of 128 reads and 128 writes
+// in flight (HBM2FRFCFS16GBDualPC sets 32/32). Underscore-composable, e.g.
+//   WithFuncModelLimits128_WithHBMQueue32_HBM2FRFCFS16GBDualPC_BaseF2PCIMConfig
+class WithFuncModelLimits128 extends WithFuncModelLimits(128, 128)
+
+// sram-vs-bw-study M6: HBM scheduler window and transaction queue of 32 per channel
+// (HBM2FRFCFS16GBDualPC builds 8/8). Underscore-composable (see above).
+class WithHBMQueue32 extends WithHBM2FRFCFS(32, 32)
