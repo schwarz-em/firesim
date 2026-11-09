@@ -239,7 +239,9 @@ class FASEDMemoryTimingModel(completeConfig: firesim.lib.bridges.CompleteConfig,
             name      = "fased-memory-timing-model",
             id        = IdRange(0, 1 << p(NastiKey).idBits),
             aligned   = true, // This must be the case for the TL-based width adapter to work
-            maxFlight = Some(math.max(cfg.maxReadsPerID, cfg.maxWritesPerID)),
+            // AXI4ToTL builds TL sources as Cat(id, count, rw) but declares IdRange(id*2*maxFlight, ...);
+            // the two only agree for a power-of-2 maxFlight (sram-vs-bw-study m6 read corruption).
+            maxFlight = Some(1 << log2Ceil(math.max(cfg.maxReadsPerID, cfg.maxWritesPerID))),
           )
         )
       )
