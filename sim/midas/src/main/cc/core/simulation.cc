@@ -185,6 +185,7 @@ void simulation_t::init_dram() {
     if (!load_mem_path.empty()) {
       loadmem->load_mem_from_file(load_mem_path);
     }
+    loadmem->load_mem_bin_if_requested();
   } else {
     if (do_zero_out_dram || !load_mem_path.empty()) {
       fprintf(stderr,
