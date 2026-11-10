@@ -2,6 +2,7 @@
 
 #include "loadmem.h"
 
+#include <chrono>
 #include <fstream>
 
 #include "core/simif.h"
@@ -21,6 +22,7 @@ loadmem_t::loadmem_t(simif_t &simif,
 
 void loadmem_t::load_mem_from_file(const std::string &filename) {
   fprintf(stdout, "[loadmem] start loading file: %s\n", filename.c_str());
+  const auto t0 = std::chrono::steady_clock::now();
   std::ifstream file(filename.c_str());
   if (!file) {
     fprintf(stderr, "[loadmem] cannot open %s\n", filename.c_str());
@@ -44,7 +46,9 @@ void loadmem_t::load_mem_from_file(const std::string &filename) {
   }
   mpz_clear(data);
   file.close();
-  fprintf(stdout, "[loadmem] done\n");
+  const double secs =
+      std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();
+  fprintf(stdout, "[loadmem] done: %zu B in %.3f s (%.2f MB/s)\n", addr, secs, addr / secs / 1e6);
 }
 
 void loadmem_t::read_mem(size_t addr, mpz_t &value) {
