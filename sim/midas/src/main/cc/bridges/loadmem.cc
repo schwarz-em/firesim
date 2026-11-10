@@ -7,6 +7,7 @@
 #include <cinttypes>
 #include <cstdio>
 #include <fstream>
+#include <glob.h>
 
 #include "core/simif.h"
 
@@ -129,6 +130,21 @@ void loadmem_t::write_mem_chunk_raw(size_t addr, const uint32_t *words, size_t b
 bool loadmem_t::load_mem_bin_if_requested() {
   if (bin_path.empty())
     return false;
+  // A glob (e.g. "*-shard.img") resolves in the simulation's working directory,
+  // which holds only this slot's job files: one shared plusarg can then name a
+  // different per-node image (FireSim prefixes each simulation_input with the
+  // job name). It must match exactly one file.
+  if (bin_path.find_first_of("*?[") != std::string::npos) {
+    glob_t g;
+    int rc = glob(bin_path.c_str(), 0, nullptr, &g);
+    if (rc != 0 || g.gl_pathc != 1) {
+      fprintf(stderr, "[loadmem] +loadmem-bin pattern %s matched %zu files (need 1)\n",
+              bin_path.c_str(), rc == 0 ? (size_t)g.gl_pathc : (size_t)0);
+      exit(EXIT_FAILURE);
+    }
+    bin_path = g.gl_pathv[0];
+    globfree(&g);
+  }
   FILE *f = fopen(bin_path.c_str(), "rb");
   if (!f) {
     fprintf(stderr, "[loadmem] cannot open %s\n", bin_path.c_str());
