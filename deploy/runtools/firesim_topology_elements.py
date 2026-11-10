@@ -593,7 +593,9 @@ class FireSimServerNode(FireSimNode):
             self.get_resolved_server_hardware_config().get_additional_required_sim_files()
         )
 
-        all_paths += self.get_job().get_siminputs()
+        # Per-job simulation_inputs are copied per slot (get_required_files_local_paths),
+        # not packed here: the driver tarball is built once per hardware config and
+        # shared by every slot, so per-job inputs here would all come from one job.
         return all_paths
 
     def get_built_tarball_path_pair(self) -> Optional[Tuple[str, str]]:
@@ -624,6 +626,9 @@ class FireSimServerNode(FireSimNode):
             all_paths.append((job_rootfs_path, self_rootfs_name))
 
         all_paths.append((self.get_job().bootbinary_path(), self.get_bootbin_name()))
+
+        # Per-job simulation inputs, named <jobname>-<file> in the slot.
+        all_paths += self.get_job().get_siminputs()
 
         # This will only have a value when config_hwdb:driver_tar is None
         maybe_tarball_path = self.get_built_tarball_path_pair()
